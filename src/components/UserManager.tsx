@@ -19,7 +19,7 @@ interface User {
 const UserManager = () => {
   const [isClick, setIsClick] = useState(false);
   const [User,setUser] = useState<User | null>(null);
-
+  
   useEffect(() => {
     // Access localStorage only on client side
     if (typeof window !== 'undefined') {
@@ -92,10 +92,12 @@ const UserManager = () => {
     });
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     localStorage.removeItem("userInfo");
     setUser(null)
     setIsClick(false)
+    await fetch("/api/logout");
+
     toast.success(`Logged out Successfully!`, {
       style: {
         backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -106,6 +108,7 @@ const UserManager = () => {
       },
       position:'top-center'
     });
+    window.location.href = "/";
   };
     
   return (

@@ -5,7 +5,7 @@ import {Globe} from "lucide-react"
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { toast } from "sonner"
-
+import NoItems from "@/components/Noitems"
 type Report = {
   _id: string;
   url: string;
@@ -71,7 +71,7 @@ export default function Home() {
 
     fetchReports();
   }, []);
-  
+  if (!reports || reports.length === 0) return <NoItems />;
   return (
     <div className="bg-black flex flex-col items-center text-white">
       <motion.svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-70 lg:w-100 fixed mt-20">
@@ -96,7 +96,7 @@ export default function Home() {
         Reports
       </motion.div>
       <div className="flex flex-col gap-4 my-15">
-        {
+        { 
           reports.map((report,idx) => (
             <motion.div
               key={idx}

@@ -11,7 +11,7 @@ export default function Footer() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true, amount: 0.2 }}
-      className="w-full bg-gray-950 text-white py-10 px-6 md:px-20 mt-30"
+      className="w-full bg-white/10 backdrop-blur-2xl text-white py-10 px-6 md:px-20 mt-30"
     >   
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center">
         {/* Logo/Brand */}

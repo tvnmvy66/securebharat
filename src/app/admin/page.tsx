@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { toast } from "sonner"
 import JobCard from "@/components/ui/JobCard"
+import NoItems from "@/components/Noitems"
 
 type Job = {
   _id: string;
@@ -71,7 +72,7 @@ export default function Home() {
 
     fetchJob();
   }, []);
-  
+  if (!jobs || jobs.length === 0) return <NoItems />;
   return (
     <div className="bg-black flex flex-col items-center text-white">
       <motion.svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-70 lg:w-100 fixed mt-20 z-0">
