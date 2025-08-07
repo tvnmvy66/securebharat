@@ -11,7 +11,8 @@ type Report = {
   url: string;
   status: string;
   isCompleted: boolean;
-  remark: string
+  remark: string;
+  link: string;
 };
 
 export default function Home() {
@@ -72,6 +73,20 @@ export default function Home() {
     fetchReports();
   }, []);
   if (!reports || reports.length === 0) return <NoItems />;
+  const getStatusColor = (status: string) => {
+  switch (status) {
+    case 'Submitted':
+      return 'bg-yellow-200/35';
+    case 'Processing':
+      return 'bg-blue-300/35';
+    case 'Completed':
+      return 'bg-green-200/35';
+    case 'Cancelled':
+      return 'bg-red-400/30';
+    default:
+      return 'bg-gray-400/30';
+  }
+};
   return (
     <div className="bg-black flex flex-col items-center text-white">
       <motion.svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-70 lg:w-100 fixed mt-20">
@@ -108,12 +123,14 @@ export default function Home() {
             <div className="flex flex-col md:flex-row justify-between mx-5">
                 <div className="flex flex-col gap-5 ">
                     <span className="flex gap-2"><Globe /> {report.url}</span>
-                    <span className="font-bold">Status : <span className="bg-gray-500/30 backdrop-blur-lg text-white p-2 px-5 rounded-xl font-bold">{report.status}</span></span>
+                    <span className="font-bold">Status : <span className={`${getStatusColor(report.status)} backdrop-blur-lg text-white p-2 px-5 rounded-xl font-bold`}>{report.status}</span></span>
                     <span className="font-bold">Remark :  {report.remark}</span>
                 </div>     
-                <span className="flex items-center justify-center mt-4 md:mt-0">
-                  <button className="px-4 py-1 rounded-lg bg-white/10 backdrop-blur-md cursor-pointer" >Download</button>  
-                </span>
+                {report.isCompleted && (
+                  <span className="flex items-center justify-center mt-4 md:mt-0">
+                    <button className="px-4 py-1 rounded-lg bg-white/10 backdrop-blur-md cursor-pointer" onClick={() => {window.location.href = report.link}}>Download</button>  
+                  </span>
+                )}
             </div>
         </Card>
             </motion.div>

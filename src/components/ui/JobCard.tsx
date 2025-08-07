@@ -14,11 +14,11 @@ type JobProps = {
 };
 
 export default function JobCard({ _id, url, status, remark, isCompleted, link}: JobProps) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [localStatus, setLocalStatus] = useState(status);
-  const [localRemark, setLocalRemark] = useState(remark);
-  const [localisCompleted,setLocalIsCompleted] = useState(isCompleted);
-  const [localLink,setLocallink] = useState(link);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [localStatus, setLocalStatus] = useState<string>(status);
+  const [localRemark, setLocalRemark] = useState<string>(remark ?? "");
+  const [localisCompleted,setLocalIsCompleted] = useState<boolean>(isCompleted);
+  const [localLink,setLocallink] = useState<string>(link ?? "");
 
   const handleSave = async () => {
     const response = 
