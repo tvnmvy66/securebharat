@@ -7,10 +7,6 @@ dotenv.config();
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-};
-
 export const authGoogle = async (req, res) => {
     const { credential } = req.body;
     try {
@@ -66,14 +62,15 @@ export const authGoogle = async (req, res) => {
         jti: jwtPayload.jti
     });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign({ _id: user._id, role: "user" }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
     const payload = {
         email: user.email,
         name: user.name,
         givenName: user.givenName,
         familyName: user.familyName,
-        picture: user.picture
+        picture: user.picture,
+        shippingAddress: user.shippingAddress
     };
 
     res.cookie("token", token, {
