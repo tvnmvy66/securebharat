@@ -92,7 +92,7 @@ export default function HeroSection() {
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-sm mt-5"
             >
-                Just drop your website URL. We'll scan it for breaches, vulnerabilities, and malware
+                Just drop your website URL. We{`'`}ll scan it for breaches, vulnerabilities, and malware
                 <br /> — instantly. No setup, no fluff.
 
             </motion.p>

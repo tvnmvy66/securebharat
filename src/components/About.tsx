@@ -34,7 +34,7 @@ export default function About() {
       >
         <h1 className="text-4xl font-bold mb-4">About Us</h1>
         <p className="text-muted-foreground text-lg">
-          We're not your average devs. We're building the future—one sarcastic AI at a time.
+          WeWe{`'`}re not your average devs. WeWe{`'`}re building the future—one sarcastic AI at a time.
         </p>
       </motion.div>
 

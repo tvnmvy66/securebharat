@@ -72,7 +72,7 @@ export default function JobCard({ _id, url, status, remark, isCompleted, link}: 
                         <div className="flex gap-5 items-center">
                           <span className="text-white font-semibold">Completed:</span>
                           <button
-                            onClick={(e) => {setLocalIsCompleted(!localisCompleted)}}
+                            onClick={() => {setLocalIsCompleted(!localisCompleted)}}
                             className={`w-16 h-8 flex items-center rounded-full px-1 transition-colors duration-300 ${
                               localisCompleted  ? "bg-green-500" : "bg-gray-500"
                             }`}
