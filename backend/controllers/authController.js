@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/User.js'; // Adjust path as needed
+import User from '../models/user.js'; // Adjust path as needed
 import dotenv from 'dotenv';
 import { OAuth2Client } from 'google-auth-library';
 
