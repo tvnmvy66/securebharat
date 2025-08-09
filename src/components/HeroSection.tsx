@@ -13,13 +13,16 @@ import Login from "@/components/Login"
 export default function HeroSection() {
     const [url, setUrl] = useState("");
     const [showLogin, setShowLogin] = useState(false);
+    
     const handleSend = async () => {
+        const token = localStorage.getItem("token") || null;
         if(!url) return
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reports/create`, {
                 method: "POST",
                 headers: { 
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify({ url }),
                 credentials: "include", 

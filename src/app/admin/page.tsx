@@ -17,14 +17,16 @@ type Job = {
 
 export default function Home() {
   const [jobs, setJobs] = useState<Job[]>();
-
+  
   useEffect(() => {
+    const token = localStorage.getItem("token") || null;
     const fetchJob = async () => {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin`, {
             method: "GET",
             headers: { 
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
             credentials: "include",
         });

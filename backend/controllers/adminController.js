@@ -3,20 +3,21 @@ import jwt from "jsonwebtoken"
 
 
 export const fetchJobs = async (req, res) => {
-    const token = req.cookies.token;
-
-    if (!token) {
-      return res.status(401).json({ success: false, message: "Unauthorized: No token" });
-    }
+    const authHeader = req.headers.authorization;
+        
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({ success: false, message: "Unauthorized: No token" });
+        }
+        const token = authHeader.split(' ')[1];
     
-    let userRole = "user";
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        userRole = decoded.role;
-    } catch (err) {
-        console.log(err)
-        return res.status(403).json({ success: false, message: "Invalid or expired token" });
-    }
+        let userRole = "user";
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            userRole = decoded.role;
+        } catch (err) {
+            console.log(err);
+            return res.status(403).json({ success: false, message: "Invalid or expired token" });
+        }
     if (userRole == undefined || userRole == "user") return res.status(403).json({ success: false, message: "Invalid role" });
     try {
         const reports = await Report.find({})
@@ -36,21 +37,22 @@ export const fetchJobs = async (req, res) => {
 }
 
 export const editJobs = async (req, res)  => {
-    const token = req.cookies.token;
+    const authHeader = req.headers.authorization;
     const { _id, url, status, remark, isCompleted, link} = req.body;
-    console.log(req.body)
-    if (!token) {
-      return res.status(401).json({ success: false, message: "Unauthorized: No token" });
-    }
+        
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({ success: false, message: "Unauthorized: No token" });
+        }
+        const token = authHeader.split(' ')[1];
     
-    let userRole = "user";
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        userRole = decoded.role;
-    } catch (err) {
-        console.log(err)
-        return res.status(403).json({ success: false, message: "Invalid or expired token" });
-    }
+        let userRole = "user";
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            userRole = decoded.role;
+        } catch (err) {
+            console.log(err);
+            return res.status(403).json({ success: false, message: "Invalid or expired token" });
+        }
     if (!userRole || userRole == "user") return res.status(403).json({ success: false, message: "Invalid role" });
     if (!url || url.length > 66) {
         return res.status(400).json({

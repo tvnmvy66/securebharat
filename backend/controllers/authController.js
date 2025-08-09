@@ -29,15 +29,7 @@ export const authGoogle = async (req, res) => {
         shippingAddress: userexist.shippingAddress
     };
 
-    res.cookie("token", token, {
-        httpOnly: true,            // JS can't touch it (security)
-        secure: true,              // required for HTTPS (Vercel & Render both use HTTPS)
-        sameSite: "none", 
-        path: "/",
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-    })
-    .status(200)
-    .json({ payload });
+    res.status(200).json({ payload, token });
     } else {
     const user = await User.create({
         email: jwtPayload.email,
@@ -73,15 +65,7 @@ export const authGoogle = async (req, res) => {
         shippingAddress: user.shippingAddress
     };
 
-    res.cookie("token", token, {
-        httpOnly: true,            // JS can't touch it (security)
-        secure: true,              // required for HTTPS (Vercel & Render both use HTTPS)
-        sameSite: "none", 
-        path: "/",
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-    })
-    .status(200)
-    .json({ payload });
+    res.status(200).json({ payload, token });
     }}
     catch (error) {
         console.error(error);

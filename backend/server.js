@@ -13,9 +13,10 @@ const app = express();
 const corsOptions = {
   origin: [
     "https://securebharat.vercel.app",
-    "https://securebharat.info"
+    "https://www.securebharat.info",
   ],
-  credentials: true
+  credentials: true,
+  allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"]
 };
 
 app.use(cors(corsOptions));

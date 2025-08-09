@@ -3,18 +3,19 @@ import jwt from "jsonwebtoken"
 
 export const createReport = async (req, res) => {
     const { url } = req.body;
-    const token = req.cookies.token;
-
-    if (!token) {
-      return res.status(401).json({ success: false, message: "Unauthorized: No token" });
+    const authHeader = req.headers.authorization;
+    
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ success: false, message: "Unauthorized: No token" });
     }
+    const token = authHeader.split(' ')[1];
 
     let userId;
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         userId = decoded._id;
     } catch (err) {
-        console.log(err)
+        console.log(err);
         return res.status(403).json({ success: false, message: "Invalid or expired token" });
     }
 
@@ -48,18 +49,19 @@ export const createReport = async (req, res) => {
 }
 
 export const fetchReport = async (req, res) => {
-    const token = req.cookies.token;
+    const authHeader = req.headers.authorization;
 
-    if (!token) {
-      return res.status(401).json({ success: false, message: "Unauthorized: No token" });
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ success: false, message: "Unauthorized: No token" });
     }
-    
+    const token = authHeader.split(' ')[1];
+
     let userId;
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         userId = decoded._id;
     } catch (err) {
-        console.log(err)
+        console.log(err);
         return res.status(403).json({ success: false, message: "Invalid or expired token" });
     }
 

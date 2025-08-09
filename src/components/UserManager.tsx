@@ -5,7 +5,7 @@ import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 import { Card , CardHeader, CardContent } from "./ui/card";
 import { Separator } from "./ui/separator";
-import { UserCog,LogOut } from "lucide-react"
+import { UserCog, LogOut, CircleUser } from "lucide-react"
 import { toast } from "sonner"
 
 interface User {
@@ -19,7 +19,6 @@ interface User {
 const UserManager = () => {
   const [isClick, setIsClick] = useState(false);
   const [User,setUser] = useState<User | null>(null);
-  
   useEffect(() => {
     // Access localStorage only on client side
     if (typeof window !== 'undefined') {
@@ -38,13 +37,16 @@ const UserManager = () => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/google`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({ credential: credentialResponse.credential }),
         credentials: "include",
       });
 
       if (response.ok){
         const data = await response.json();
+        localStorage.setItem("token", data.token);
         localStorage.setItem("userInfo", JSON.stringify(data.payload));
         setUser(data.payload);
 
@@ -78,7 +80,7 @@ const UserManager = () => {
       action: {
         label: "Login",
         onClick: () => {
-          window.location.href = "/login";
+          window.location.href = "/";
         },
       },
       actionButtonStyle:{
@@ -94,9 +96,9 @@ const UserManager = () => {
 
   const handleLogout = async () => {
     localStorage.removeItem("userInfo");
+    localStorage.removeItem("token");
     setUser(null)
     setIsClick(false)
-    await fetch("/api/logout");
 
     toast.success(`Logged out Successfully!`, {
       style: {
@@ -114,19 +116,19 @@ const UserManager = () => {
   return (
         <div className="cursor-pointer flex flex-col items-center gap-2 relative">
           <Avatar className="w-9 h-9" onClick={() => setIsClick(!isClick)}>
-            <AvatarImage src={User?.picture || "https://avatars.githubusercontent.com/u/197718854"} alt="user pic" />
-            <AvatarFallback>U</AvatarFallback>
+            <AvatarImage src={User?.picture} alt="user pic" />
+            <AvatarFallback><CircleUser className="bg-black w-9 h-9"/></AvatarFallback>
           </Avatar>
           {isClick && ( 
             <Card className="absolute top-[3rem] -right-2 bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl rounded-2xl transition hover:scale-[1.01] duration-300 z-10 w-60 text-white">
                 <CardHeader className="w-full flex">
                     <Avatar className="w-9 h-9 my-4">
-                        <AvatarImage src={User?.picture || "https://avatars.githubusercontent.com/u/197718854"} alt="user pic" />
-                        <AvatarFallback>U</AvatarFallback>
+                        <AvatarImage src={User?.picture} alt="user pic" />
+                        <AvatarFallback><CircleUser className="bg-black w-9 h-9"/></AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col my-auto">
-                        <span className="text-sm font-bold">{User?.name || "UserName"}</span>
-                        <span className="text-sm">{User?.email || "User Mail"}</span>
+                        <span className="text-sm font-bold">{User?.name || "Name"}</span>
+                        <span className="text-sm">{User?.email || "Gmail"}</span>
                     </div>
                 </CardHeader>
                 <Separator className="relative -mt-6"/>

@@ -17,14 +17,16 @@ type Report = {
 
 export default function Home() {
   const [reports, setReports] = useState<Report[]>([]);
-
+  
   useEffect(() => {
+    const token = localStorage.getItem("token") || null;
     const fetchReports = async () => {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reports/fetch`, {
             method: "GET",
             headers: { 
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
             credentials: "include",
         });
