@@ -57,6 +57,7 @@ export default function Home() {
                 position:'top-center'
             });
       } catch (err) {
+        console.error("Error fetching reports:", err);
         toast.error(`Reports fetching failed!`, {
             style: {
                 backgroundColor: "rgba(255, 255, 255, 0.1)",

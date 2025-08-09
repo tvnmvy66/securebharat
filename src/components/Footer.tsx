@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion";
-// import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Footer() {
 
@@ -17,20 +17,11 @@ export default function Footer() {
         {/* Logo/Brand */}
         <div className="text-2xl font-bold">Secure<span className="text-blue-500">Bharat</span></div>
 
-        {/* Links */}
         <div className="flex gap-6 text-sm md:text-base">
-          <a href="/" className="hover:text-blue-400 transition">Home</a>
-          <a href="/reports" className="hover:text-blue-400 transition">Reports</a>
-          <a href="/#about" className="hover:text-blue-400 transition">About</a>
+          <Link href="/" className="hover:text-blue-400 transition">Home</Link>
+          <Link href="/reports" className="hover:text-blue-400 transition">Reports</Link>
+          <Link href="/#about" className="hover:text-blue-400 transition">About</Link>
         </div>
-
-        {/* Socials */}
-        {/* <div className="flex gap-4">
-          <Button variant="ghost" size="icon">G
-          </Button>
-          <Button variant="ghost" size="icon">T
-          </Button>
-        </div> */}
       </div>
 
       {/* Copyright */}

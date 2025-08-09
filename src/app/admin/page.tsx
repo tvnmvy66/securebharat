@@ -57,6 +57,7 @@ export default function Home() {
                 position:'top-center'
             });
       } catch (err) {
+        console.error("Error fetching jobs:", err);
         toast.error(`Jobs fetching failed!`, {
             style: {
                 backgroundColor: "rgba(255, 255, 255, 0.1)",

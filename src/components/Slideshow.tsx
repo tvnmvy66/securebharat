@@ -4,7 +4,6 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { motion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
-import { Avatar } from './ui/avatar'
 
 const slides = [
   { id: 1, title:'🛡️ Free Scans', content: 'Scan unlimited websites without spending a single rupee.No hidden fees, no credit card traps, just pure scanning power.Perfect for devs, hackers (the ethical kind), and curious cats.You get pro-level tools, absolutely free — because security should be accessible to everyone.' },
@@ -15,16 +14,16 @@ const slides = [
 
 export default function Slideshow() {
   const scrollRef = useRef<HTMLDivElement>(null)
-  let currentIndex = 0
+  const currentIndexRef = useRef(0)
 
   useEffect(() => {
     const interval = setInterval(() => {
       if (scrollRef.current) {
         const container = scrollRef.current
         const width = container.clientWidth
-        currentIndex = (currentIndex + 1) % slides.length
+        currentIndexRef.current = (currentIndexRef.current + 1) % slides.length
         container.scrollTo({
-          left: width * currentIndex,
+          left: width * currentIndexRef.current,
           behavior: 'smooth',
         })
       }

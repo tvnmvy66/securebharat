@@ -12,14 +12,14 @@ const team = [
     role: "Founder",
     image: "https://avatars.githubusercontent.com/u/197718854",
     initials: "P",
-    desc: "If there’s a hole in your system, I’ll find it before the bad guys do. Probably while sipping coffee.",
+    desc: "If there's a hole in your system, I'll find it before the bad guys do. Probably while sipping coffee.",
   },
   {
     name: "Tanmay Dongare",
     role: "SDE 1",
     image: "https://avatars.githubusercontent.com/u/143926865",
     initials: "T",
-    desc: "Wrote a function. It worked. Still don’t know why. SDE-1 magic.",
+    desc: "Wrote a function. It worked. Still don't know why. SDE-1 magic.",
   },
 ]
 

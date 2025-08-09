@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Slideshow from "@/components/Slideshow"
 import About from "@/components/About"
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import { toast } from "sonner"
 import Login from "@/components/Login"
 
@@ -82,7 +82,7 @@ export default function HeroSection() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 1 }}
             >
-                INDIA'S FIRST WEBSITE SCANNER 
+                {"INDIA'S FIRST WEBSITE SCANNER"}
             </motion.div>
             
 
@@ -92,7 +92,8 @@ export default function HeroSection() {
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-sm mt-5"
             >
-                Just drop your website URL. We'll scan it for breaches, vulnerabilities, and malware<br/> — instantly. No setup, no fluff.
+                Just drop your website URL. We'll scan it for breaches, vulnerabilities, and malware
+                <br /> — instantly. No setup, no fluff.
 
             </motion.p>
             
