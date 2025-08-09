@@ -11,7 +11,10 @@ import adminRouter from "./routes/admin.js"
 connectDB();
 const app = express();
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: [
+    "https://securebharat.vercel.app",
+    "https://securebharat.info"
+  ],
   credentials: true
 };
 
