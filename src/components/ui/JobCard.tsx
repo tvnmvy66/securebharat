@@ -21,11 +21,13 @@ export default function JobCard({ _id, url, status, remark, isCompleted, link}: 
   const [localLink,setLocallink] = useState<string>(link ?? "");
 
   const handleSave = async () => {
+        const token = localStorage.getItem("token") || null;
     const response = 
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/edit`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         },
         credentials: "include", 
         body: JSON.stringify({
